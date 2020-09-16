@@ -18,6 +18,7 @@ export default ({renderTitle, columns, data, id, title, handleSort, handleSearch
 
 	React.useEffect(() => {
 		setTableData(data)
+		setSortMode(defaultMode)
 	}, [data])
 
 	React.useEffect(() => {
