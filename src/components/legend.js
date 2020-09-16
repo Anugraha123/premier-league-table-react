@@ -3,10 +3,10 @@ import useStyles, {colors} from './table.styles';
 
 const LegendSvg = ({color}) => {
 	return (
-		<svg width="10" height="10">
+		<svg width="3" height="16">
 			<rect
-				width="10"
-				height="10"
+				width="3"
+				height="16"
 				fill={color}
 			/>
 		</svg>

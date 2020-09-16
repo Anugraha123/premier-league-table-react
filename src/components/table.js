@@ -17,8 +17,7 @@ export default ({renderTitle, columns, data, id, title, handleSort, handleSearch
 	const classes = useStyles();
 
 	React.useEffect(() => {
-		setTableData(data)
-		setSortMode(defaultMode)
+		reset();
 	}, [data])
 
 	React.useEffect(() => {
@@ -27,9 +26,14 @@ export default ({renderTitle, columns, data, id, title, handleSort, handleSearch
 			filteredData = handleSearch({arr: filteredData, query: searchQuery})
 			setTableData(filteredData);
 		} else {
-			setTableData(data);
+			reset();
 		}
 	}, [searchQuery, data])
+
+	const reset = () => {
+		setTableData(data)
+		setSortMode(defaultMode)
+	}
 
 	const handleSortToggle = (field) => () => {
 		let sortedData = tableData
@@ -55,7 +59,7 @@ export default ({renderTitle, columns, data, id, title, handleSort, handleSearch
 					<input
 						type='text'
 						value={searchQuery}
-						placeholder='Search by name'
+						placeholder='Search by team name'
 						onChange={(event) => setSearchQuery(event.target.value)}
 					/>
 

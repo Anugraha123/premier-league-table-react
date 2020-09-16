@@ -167,7 +167,7 @@ const useStyles = createUseStyles({
 
 	footer: {
 		height: 'auto',
-		padding: '14px',
+		padding: '12px',
 		borderTop: '1px solid #f1eded',
 		display: 'flex',
 
@@ -176,7 +176,7 @@ const useStyles = createUseStyles({
 			marginRight: 42,
 
 			'& p': {
-				marginBottom: 6
+				marginBottom: 2
 			},
 
 			'& > *': {
@@ -184,7 +184,7 @@ const useStyles = createUseStyles({
 				alignItems: 'center',
 
 				'& > *': {
-					marginRight: 4
+					margin: 4
 				}
 			}
 		}

@@ -12,28 +12,28 @@ const columns = [
 		title: 'Team', field: 'team', define: 'Team name'
 	},
 	{
-		title: 'Played', field: 'pld', type: 'numeric', define: 'Game played'
+		title: 'Played', field: 'pld', define: 'Game played'
 	},
 	{
-		title: 'Won', field: 'won', type: 'numeric', define: 'Won'
+		title: 'Won', field: 'won', define: 'Won'
 	},
 	{
-		title: 'Drawn', field: 'drawn', type: 'numeric', define: 'Drawn'
+		title: 'Drawn', field: 'drawn', define: 'Drawn'
 	},
 	{
-		title: 'Lost', field: 'lost', type: 'numeric', define: 'Lose'
+		title: 'Lost', field: 'lost', define: 'Lose'
 	},
 	{
-		title: 'GF', field: 'gf', type: 'numeric', define: 'Goal for'
+		title: 'GF', field: 'gf', define: 'Goal for'
 	},
 	{
-		title: 'GA', field: 'ga', type: 'numeric', define: 'Goal against'
+		title: 'GA', field: 'ga', define: 'Goal against'
 	},
 	{
-		title: 'GD', field: 'gd', type: 'numeric', define: 'Goal difference'
+		title: 'GD', field: 'gd', define: 'Goal difference'
 	},
 	{
-		title: 'Points', field: 'point', type: 'numeric', sort: true, define: 'Total points'
+		title: 'Points', field: 'point', sort: true, define: 'Total points'
 	},
 	{
 		title: 'Last 5',

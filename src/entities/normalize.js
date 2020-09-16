@@ -32,8 +32,6 @@ export default (self) => ({
 			const matchTable = [];
 
 			matches.forEach((match) => {
-
-
 				matchTable.push({
 					teamA: {
 						name: self.trimFC(match.team1),
@@ -67,14 +65,14 @@ export default (self) => ({
 
 				// if not added add team on the list
 				if (!teams[teamAName]) {
-					teams[teamAName] = Object.assign({}, teamDefaultData)
+					teams[teamAName] = {...teamDefaultData}
 				}
 
 				if (!teams[teamBName]) {
-					teams[teamBName] = Object.assign({}, teamDefaultData)
+					teams[teamBName] = {...teamDefaultData}
 				}
 
-				// if team A won
+				// if team A wins
 				if (AWon) {
 					teams[teamAName].won = teams[teamAName].won + 1
 					teams[teamBName].lost = teams[teamBName].lost + 1
@@ -102,7 +100,7 @@ export default (self) => ({
 						'D'
 					]
 				} else {
-					// if team B won
+					// if team B wins
 					teams[teamAName].lost = teams[teamAName].lost + 1
 					teams[teamBName].won = teams[teamBName].won + 1
 					teams[teamBName].point = teams[teamBName].point + 3
@@ -116,7 +114,7 @@ export default (self) => ({
 					]
 				}
 
-				// add for and against scores
+				// add for, against and difference scores
 				teams[teamAName].goalFor = teams[teamAName].goalFor + teamAScore
 				teams[teamBName].goalFor = teams[teamBName].goalFor + teamBScore
 				teams[teamAName].goalAgainst = teams[teamAName].goalAgainst + teamBScore
@@ -126,6 +124,7 @@ export default (self) => ({
 			})
 		})
 
+		// sort it desc
 		const sortedList = self.sortList({
 			arr: Object.entries(teams).map((team) => {
 				return {
@@ -135,6 +134,7 @@ export default (self) => ({
 			})
 		});
 
+		// add position and return
 		return sortedList.map((team, index) => ({
 			...team,
 			pos: index + 1

@@ -12,7 +12,6 @@ export default () => ({
 			data.sort((a, b) => b[by] - a[by]);
 		}
 
-
 		return data;
 	},
 
