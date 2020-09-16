@@ -6,7 +6,7 @@
   "scripts": {
     "server": "node server.js 8080",
     "client": "webpack-dev-server --port 9020",
-    "start": "concurrently \"yarn server\" \"yarn client\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "webpack"
   },
   "author": "anugrahaacharya12@gmail.com",
