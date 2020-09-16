@@ -4,8 +4,6 @@ import Legend from './legend';
 
 const handleShowTeamModal = (team) => {
 	import('./teamModal').then((Modal) => {
-		console.log('ModalModalModalModal', Modal)
-
 		return Modal.loadComponent(
 			() => <Modal.default team={team} />
 		)
