@@ -3,10 +3,24 @@ import {createUseStyles} from 'react-jss'
 export const colors = {
 	green: '#2a8e45',
 	red: '#ea4335',
-	lightgrey: '#d0d6d5'
+	lightgrey: '#d0d6d5',
+	darkorange: '#fa7b17'
+}
+
+const qualificationAndRelegationStyles = {
+	content: '""',
+	height: '100%',
+	width: 4,
+	position: 'absolute',
+	left: 0,
+	top: 0
 }
 
 const useStyles = createUseStyles({
+	tableWrapper: {
+		overflow: 'auto'
+	},
+
 	table: {
 		width: '100%',
 		border: 'none',
@@ -20,13 +34,8 @@ const useStyles = createUseStyles({
 					position: 'relative',
 
 					'&::after': {
-						content: '""',
-						height: '100%',
-						width: 4,
-						backgroundColor: colors.green,
-						position: 'absolute',
-						left: 0,
-						top: 0
+						...qualificationAndRelegationStyles,
+						backgroundColor: colors.green
 					}
 				}
 			},
@@ -36,13 +45,8 @@ const useStyles = createUseStyles({
 					position: 'relative',
 
 					'&::after': {
-						content: '""',
-						height: '100%',
-						width: 4,
-						backgroundColor: colors.red,
-						position: 'absolute',
-						left: 0,
-						top: 0
+						...qualificationAndRelegationStyles,
+						backgroundColor: colors.red
 					}
 				}
 			}
@@ -54,13 +58,8 @@ const useStyles = createUseStyles({
 					position: 'relative',
 
 					'&::after': {
-						content: '""',
-						height: '100%',
-						width: 4,
-						backgroundColor: colors.red,
-						position: 'absolute',
-						left: 0,
-						top: 0
+						...qualificationAndRelegationStyles,
+						backgroundColor: colors.red
 					}
 				}
 			},
@@ -70,13 +69,8 @@ const useStyles = createUseStyles({
 					position: 'relative',
 
 					'&::after': {
-						content: '""',
-						height: '100%',
-						width: 4,
-						backgroundColor: colors.green,
-						position: 'absolute',
-						left: 0,
-						top: 0
+						...qualificationAndRelegationStyles,
+						backgroundColor: colors.green
 					}
 				}
 			}

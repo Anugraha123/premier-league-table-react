@@ -69,112 +69,112 @@ export default ({renderTitle, columns, data, id, title, handleSort, handleSearch
 				</div>
 			</section>
 
-			<section style={{overflow: 'auto'}}>
-			<table className={`${classes.table} ${searchQuery ? '' : 'mode-' + sortMode}`}>
-				<thead>
-					<tr>
-						{
-							columns.map(({title, sort, field, define}, index) => {
-								return (
-									<th key={title+index} title={define}>
-										{
-											sort ? (
-												<button
-													onClick={handleSortToggle(field)}
-												>
-													<i>
-														{sortMode === 'asc' ? 'arrow_upward' : 'arrow_downward'}
-													</i>
+			<section className={classes.tableWrapper}>
+				<table className={`${classes.table} ${searchQuery ? '' : 'mode-' + sortMode}`}>
+					<thead>
+						<tr>
+							{
+								columns.map(({title, sort, field, define}, index) => {
+									return (
+										<th key={title+index} title={define}>
+											{
+												sort ? (
+													<button
+														onClick={handleSortToggle(field)}
+													>
+														<i>
+															{sortMode === 'asc' ? 'arrow_upward' : 'arrow_downward'}
+														</i>
 
-													{title}
-												</button>
-											) : title
-										}
-									</th>
+														{title}
+													</button>
+												) : title
+											}
+										</th>
+									)
+								})
+							}
+						</tr>
+					</thead>
+
+					<tbody>
+						{
+							tableData.map(({
+								team,
+								pos,
+								notations,
+								won,
+								drawn,
+								lost,
+								goalFor,
+								goalAgainst,
+								goalDifference,
+								point
+							}, index) => {
+								return (
+									<tr key={`tbody-${id}-${index}`}>
+										<td>
+											{pos}
+										</td>
+
+										<td className='team'>
+											<button
+												onClick={() => handleShowTeamModal(team)}
+											>
+												{team}
+											</button>
+										</td>
+
+										<td>
+											{notations.length}
+										</td>
+
+										<td>
+											{won}
+										</td>
+
+										<td>
+											{drawn}
+										</td>
+
+										<td>
+											{lost}
+										</td>
+
+										<td>
+											{goalFor}
+										</td>
+
+										<td>
+											{goalAgainst}
+										</td>
+
+										<td>
+											{goalDifference}
+										</td>
+
+										<td>
+											<b>{point}</b>
+										</td>
+
+										<td>
+											{notations.slice(Math.max(notations.length - 5, 1)).map((item, idx) => {
+												return (
+													<span
+														key={`last-five-${index}-${idx}`}
+														className={`${classes.lastFiveTag} ${item.toLowerCase()}`}
+													>
+														{item}
+													</span>
+												)
+											})}
+										</td>
+									</tr>
 								)
 							})
 						}
-					</tr>
-				</thead>
-
-				<tbody>
-					{
-						tableData.map(({
-							team,
-							pos,
-							notations,
-							won,
-							drawn,
-							lost,
-							goalFor,
-							goalAgainst,
-							goalDifference,
-							point
-						}, index) => {
-							return (
-								<tr key={`tbody-${id}-${index}`}>
-									<td>
-										{pos}
-									</td>
-
-									<td className='team'>
-										<button
-											onClick={() => handleShowTeamModal(team)}
-										>
-											{team}
-										</button>
-									</td>
-
-									<td>
-										{notations.length}
-									</td>
-
-									<td>
-										{won}
-									</td>
-
-									<td>
-										{drawn}
-									</td>
-
-									<td>
-										{lost}
-									</td>
-
-									<td>
-										{goalFor}
-									</td>
-
-									<td>
-										{goalAgainst}
-									</td>
-
-									<td>
-										{goalDifference}
-									</td>
-
-									<td>
-										<b>{point}</b>
-									</td>
-
-									<td>
-										{notations.slice(Math.max(notations.length - 5, 1)).map((item, idx) => {
-											return (
-												<span
-													key={`last-five-${index}-${idx}`}
-													className={`${classes.lastFiveTag} ${item.toLowerCase()}`}
-												>
-													{item}
-												</span>
-											)
-										})}
-									</td>
-								</tr>
-							)
-						})
-					}
-				</tbody>
-			</table>
+					</tbody>
+				</table>
 			</section>
 
 			{(searchQuery && tableData.length === 0) &&

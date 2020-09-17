@@ -1,6 +1,7 @@
 const path = require('path');
 module.exports = {
 	// define entry file and output
+	devtool: 'inline-source-map',
 	entry: './src/index.js',
 	output: {
 		path: path.resolve('dist'),
