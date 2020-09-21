@@ -20,50 +20,23 @@ export default (self) => ({
 
 	// where data is normalized
 	normalize: (data) => {
-		const matchBoard = self.matchBoard(data.rounds);
-
-		return self.distributePoints(matchBoard);
-	},
-
-	matchBoard: (rounds) => {
-		const roundWithMatchTable = []
-
-		rounds.forEach(({matches}) => {
-			const matchTable = [];
-
-			matches.forEach((match) => {
-				matchTable.push({
-					teamA: {
-						name: self.trimFC(match.team1),
-						score: match.score.ft[0]
-					},
-					teamB: {
-						name: self.trimFC(match.team2),
-						score: match.score.ft[1]
-					}
-				})
-			})
-
-			roundWithMatchTable.push(matchTable);
-		})
-
-		return roundWithMatchTable
+		return self.distributePoints(data.rounds);
 	},
 
 	// distributing points of each individual teams
 	distributePoints: (rounds) => {
-		const teams = {};
+		let teams = {}
 
-		rounds.forEach((matches) => {
+		rounds.forEach(({matches}) => {
 			matches.forEach((match) => {
-				let teamAScore = match.teamA.score;
-				let teamBScore = match.teamB.score;
-				let teamAName = match.teamA.name;
-				let teamBName = match.teamB.name;
-				const AWon = teamAScore - teamBScore > 0;
-				const isDrawn = teamAScore - teamBScore === 0;
+				let teamAScore = +match.score.ft[0];
+				let teamBScore = +match.score.ft[1];
+				let teamAName = self.trimFC(match.team1);
+				let teamBName = self.trimFC(match.team2);
+				const AWon = teamAScore > teamBScore;
+				const BWon = teamBScore > teamAScore;
+				const isDrawn = teamAScore === teamBScore;
 
-				// if not added add team on the list
 				if (!teams[teamAName]) {
 					teams[teamAName] = {...teamDefaultData}
 				}
@@ -72,53 +45,38 @@ export default (self) => ({
 					teams[teamBName] = {...teamDefaultData}
 				}
 
-				// if team A wins
 				if (AWon) {
-					teams[teamAName].won = teams[teamAName].won + 1
-					teams[teamBName].lost = teams[teamBName].lost + 1
-					teams[teamAName].point = teams[teamAName].point + 3
-					teams[teamAName].notations = [
-						...teams[teamAName].notations,
-						'W'
-					]
-					teams[teamBName].notations = [
-						...teams[teamBName].notations,
-						'L'
-					]
-				} else if (isDrawn) {
-					// if drawn
-					teams[teamAName].drawn = teams[teamAName].drawn + 1
-					teams[teamBName].drawn = teams[teamBName].drawn + 1
-					teams[teamAName].point = teams[teamAName].point + 1
-					teams[teamBName].point = teams[teamBName].point + 1
-					teams[teamAName].notations = [
-						...teams[teamAName].notations,
-						'D'
-					]
-					teams[teamBName].notations = [
-						...teams[teamBName].notations,
-						'D'
-					]
-				} else {
-					// if team B wins
-					teams[teamAName].lost = teams[teamAName].lost + 1
-					teams[teamBName].won = teams[teamBName].won + 1
-					teams[teamBName].point = teams[teamBName].point + 3
-					teams[teamAName].notations = [
-						...teams[teamAName].notations,
-						'L'
-					]
-					teams[teamBName].notations = [
-						...teams[teamBName].notations,
-						'W'
-					]
+					teams[teamAName].won++;
+					teams[teamAName].point += 3;
+					teams[teamBName].lost++;
+
+					teams[teamAName].notations = teams[teamAName].notations.concat('W')
+					teams[teamBName].notations = teams[teamBName].notations.concat('L')
 				}
 
-				// add for, against and difference scores
-				teams[teamAName].goalFor = teams[teamAName].goalFor + teamAScore
-				teams[teamBName].goalFor = teams[teamBName].goalFor + teamBScore
-				teams[teamAName].goalAgainst = teams[teamAName].goalAgainst + teamBScore
-				teams[teamBName].goalAgainst = teams[teamBName].goalAgainst + teamAScore
+				if (BWon) {
+					teams[teamBName].won++;
+					teams[teamBName].point += 3;
+					teams[teamAName].lost++;
+
+					teams[teamBName].notations = teams[teamBName].notations.concat('W')
+					teams[teamAName].notations = teams[teamAName].notations.concat('L')
+				}
+
+				if (isDrawn) {
+					teams[teamBName].drawn++;
+					teams[teamAName].drawn++;
+					teams[teamAName].point += 1;
+					teams[teamBName].point += 1;
+
+					teams[teamBName].notations = teams[teamBName].notations.concat('D')
+					teams[teamAName].notations = teams[teamAName].notations.concat('D')
+				}
+
+				teams[teamAName].goalFor += teamAScore
+				teams[teamBName].goalFor += teamBScore
+				teams[teamAName].goalAgainst += teamBScore
+				teams[teamBName].goalAgainst += teamAScore
 				teams[teamAName].goalDifference = teams[teamAName].goalFor - teams[teamAName].goalAgainst
 				teams[teamBName].goalDifference = teams[teamBName].goalFor - teams[teamBName].goalAgainst
 			})
